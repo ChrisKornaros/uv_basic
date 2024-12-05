@@ -1,5 +1,11 @@
 # The Python Project *and* Package manager, uv
 ## Introduction
+
+::: {.callout-important}
+**Note, use CMD-K CMD-S to open the keyboard shortcuts.**
+`SHFT-CMD-i` inserts a code block
+:::
+
 `uv` is an Open Source project by `Astral`, the makers of `ruff`, that is self described (and worthy of the title) as 
 
 > **pull** from their docs here.
@@ -15,6 +21,7 @@ I'm only just beginning to learn and use the tool in my own projects (including 
 - Basic knowledge of Quarto for documention [Quarto](https://www.quarto.org/)
 
 ### Initializing a Project {#sec-1-init}
+#### Local Repository
 The nice thing about `uv` is that it's designed to make Python development easier, so there aren't any head-scratching gotchas.
 
 For the sake of this example and entire template, let's assume I'm currently sitting in my `main` directory. For some that might be `home`, others `app`, for MacOS the default is `/usr/yourusername`, or maybe you prefer to put all projects in a `Documents` or `Projects` folder. Anyways, to start up a project you can do one of two things:
@@ -38,4 +45,21 @@ This will create 4 files and initalize a local git repository:
 4. `README.md`
 5. `.git`
 6. `.gitignore`
+
+:::{.callout-tip}
+# uv and the .gitignore file
+The nice thing about `uv` is that it autopopulates your `.gitignore` file with a few files and patterns, not to mention, it provides some basic tagging for what it puts in there. Just open the file (it's plain text) to see. Since I'm saving my progress with this repo using git, I want to keep the overall file size down. So, I also included the `.html` and `.ipynb` file that Quarto generates because they can get large fast.
+:::
+
+#### Remote Repository
+For anyone familiar with software development you've probably heard of GitHub or GitLab. I'm more familiar, professionally and personally, with GitHub (which is what I'll be using in this example); however, there are a large amount of people that prefer GitLab because it is better for some enterprise and personal use cases-- **TL;DR** `...`. For this, you'll want to install the [GitHub CLI](https://www.github.com/cli/). Then, you can follow along.
+
+1. Make sure to get your credentials setup
+   1. A
+   2. B
+   3. C
+   4. D
+   5. E
+2. Check that it's installed
+   1. 
 
