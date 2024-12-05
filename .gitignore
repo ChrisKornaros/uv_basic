@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Quarto Files
+docs/*.html
+docs/*_files/
