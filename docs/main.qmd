@@ -1,1 +1,21 @@
-# Basic workflow with the Python project and package manager, uv
+# The Python Project *and* Package manager, uv
+## Introduction
+`uv` is an Open Source project by `Astral`, the makers of `ruff`, that is self described (and worthy of the title) as 
+
+> **pull** from their docs here.
+
+
+I'm only just beginning to learn and use the tool in my own projects (including converting my existing project environments to uv) and from what I've seen it's going to make life much easier. That being said, while you overwrite the muscle memory developed for years with `pip` and `venv`, there will be some growing pains; however, for those who are less familiar with what I'm talking about, I'll still explain some basic concepts and snags that I both run and ran into.
+
+## Basic workflow and guide
+### Concepts to Know Before Getting Started {#sec-0-prereq}
+- Basic knowledge of directories, bash (zsh in the case of MacOS), and using the CLI [bash resources](https://www.DataCamp.com/)
+- Basic knowledge of Python, common project structures, and simple workflows [Python resources](https://www.python.org/)
+- Basic knowledge of git (for local version control) and GitHub (for collaboration) [git and GitHub basics](https://www.GitHub.com/)
+- Basic knowledge of Quarto for documention [Quarto](https://www.quarto.org/)
+
+### Initializing a Project {#sec-1-init}
+The nice thing about `uv` is that it's designed to make Python development easier, so there aren't any head-scratching gotchas. To start up a project you can do one of two things:
+```
+
+```
