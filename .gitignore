@@ -11,4 +11,5 @@ wheels/
 
 # Quarto Files
 docs/*.html
+docs/*ipynb
 docs/*_files/

@@ -15,7 +15,27 @@ I'm only just beginning to learn and use the tool in my own projects (including 
 - Basic knowledge of Quarto for documention [Quarto](https://www.quarto.org/)
 
 ### Initializing a Project {#sec-1-init}
-The nice thing about `uv` is that it's designed to make Python development easier, so there aren't any head-scratching gotchas. To start up a project you can do one of two things:
-```
+The nice thing about `uv` is that it's designed to make Python development easier, so there aren't any head-scratching gotchas.
 
-```
+For the sake of this example and entire template, let's assume I'm currently sitting in my `main` directory. For some that might be `home`, others `app`, for MacOS the default is `/usr/yourusername`, or maybe you prefer to put all projects in a `Documents` or `Projects` folder. Anyways, to start up a project you can do one of two things:
+
+1. Have uv do everything, and then change directories
+   1. ```
+   uv init uv_basic
+   cd uv_basic
+   ```
+2. Create the directory, change directories, and then have uv do everything
+   1. ```
+   mkdir uv_basic
+   cd uv_basic
+   uv init
+   ```
+
+This will create 4 files and initalize a local git repository:
+1. `.python-version`
+2. `.pyproject.toml`
+3. `hello.py`
+4. `README.md`
+5. `.git`
+6. `.gitignore`
+
