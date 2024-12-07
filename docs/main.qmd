@@ -62,7 +62,7 @@ For anyone familiar with software development you've probably heard of GitHub or
    5. E
 2. Check that GitHub CLI is installed and verify by looking at which repos you have access to
    1. `which gh`
-3. Assuming you haven't, create your project repo from the CLI
+3. Assuming you haven't, create your project repo from the CLI (you can also do so using the GitHub.com GUI, but I prefer this way to reinforce my learning)
    1. `gh repo create`
    2. `Create a new repository from scratch`
    3. `uv basic`
@@ -78,6 +78,59 @@ For anyone familiar with software development you've probably heard of GitHub or
    5. git push
 
 ### Adding and managing dependencies {#sec-2-dep}
+Thus far, the workflow with uv isn't too dissimilar from using pip and venv, but managing dependencies and testing scripts is where uv shines. As you'll see below, with pip and venv, you have to manually create the virtual environment, activate it, install dependencies, manage requirements files, and then run your script. With uv, however, almost all of that is done automatically and things like uv pip list or uv venv are only there for backwards compatibility. A lot of the tedious pieces of the DevOps workflow are now obsolete or handled in the background.
+
+#### Using pip and venv
+When using a combination of pip and venv, your typical workflow is straightforward, but becomes complicated if you need to uninstall certain packages or make quick, iterative tests of code. 
+
+```{bash}
+mkdir uv_basic
+cd uv_basic
+python -m venv .venv
+source .venv/bin/activate
+pip install duckdb
+pip install numpy
+pip freeze > requirements.txt
+python script.py
+
+# Realize you don't need numpy, so you want to uninstall it and keep your environment cleaner
+deactivate
+rm -r .venv
+python -m venv .venv
+source .venv/bin/activate
+# Two options here, delete numpy from requirements.txt, not scalable with many packages, or reinstall just duckdb, also not scaleable
+pip install duckdb
+pip freeze > requirements.txt
+python script.py
+```
+
+As you can see, the initial workflow isn't horrible, but if you need to make a change to the environment or just want to test something small, the number of steps quickly multiplies. 
+
+#### Using uv
+Compare that with the streamlined uv workflow.
+
+```{bash}
+uv init uv_basic
+cd uv_basic
+uv add duckdb
+uv add numpy
+uv run script.py
+uv remove numpy
+uv run script.py
+```
+
+The workflow improvements and efficiency should be obvious. The nice thing is that uv functions as your standalone virtual environment, without the need for activation or deactivation. Using `uv add` will add a dependency to both your `pyproject.toml` file and your `uv.lock` file. Additionally, if you are more familiar with verifying using pip, running `uv pip list` will show that the package is there (although the pip functionality is obsolete and only for backwards compatibility at this point). If you want to remove a package, simply use `uv remove` and that will also remove it from the .toml and .lock files. The last feature you'll need to understand (to use uv at a basic level) is `uv sync`. Simply put, it syncs your environment with the project's dependencies/lock file. This ensures that the exact versions specified in your lockfile are used in your environment-- dependencies may be added, removed, or updated if there are updates to the declared dependencies. 
+
+To cap this off, here are some common use cases for `uv sync`:
+- Run uv sync (without --frozen) to keep dependencies up-to-date and to resolve changes.
+- Use uv sync --frozen to ensure that only locked dependencies are installed.
+- Use uv sync --no-sync to validate dependencies without altering them.
+
+### Converting your Legacy Projects to uv
+Now that you've seen the benefits of uv, as well as the workflow differences, you probably want to give it a try or even convert entire projects to uv. The good news is that this is simple and only requires a few modifications to get things up and running. The general workflow is the same as I outlined above, you'll just be cleaning up your local environment and reinstalling things along the way. The project I converted to use `uv` for this example utilizes `DuckDB` and `dbt` for the database and data modeling/ETL, so I had a .config folder with my DB file, venv directory, and requirements file. In the below example, I did away with that and lined up my project directory structure with uv's default.  
+
+1. Change directories to your specific project directory
+2. Assuming your `.git`, `.venv`, and 
 
 ## General Notes
 - It seems that while tools are specific to a uv project instance (i.e. uv_basic returns the .venv dir when asking which jupyter, but test before intalling anything say it can't be found), when you use uv tool install it installs it to the system wide uv
@@ -86,55 +139,3 @@ For anyone familiar with software development you've probably heard of GitHub or
 - `uv tool install` only works when installing python package specific tools, but DuckDB for Python (for example) doesn't come packaged with the DuckDB CLI tools, so `uv tool install duckdb` won't install the DuckDB CLI features
 - It seems that saving variable with duckdb.sql(...).show() and then printing the type of that, just prints the query output, insteaed of the type
 - Based on tests, the workflow changes are as follows
-- Worth noting, the below code does not account for git creation or management
-
-### pip/classic format
-```
-mkdir uv_basic
-cd uv_basic
-python -m venv .venv
-source .venv/bin/activate
-pip install duckdb
-
-# Write your script
-"""
-import duckdb
-
-def main():
-        test = duckdb.sql("SELECT 42")
-
-        return print(type(test))
-
-if __name__ == '__main__':
-   main()
-"""
-
-python script.py
-# <class 'duckdb.duckdb.DuckDBPyRelation'>
-deactivate
-
-```
-### uv format
-
-```
-cd home
-uv init uv_basic
-cd uv_basic
-uv add duckdb
-
-# Write your script
-"""
-import duckdb
-
-def main():
-        test = duckdb.sql("SELECT 42")
-
-        return print(type(test))
-
-if __name__ == '__main__':
-   main()
-"""
-
-uv run test.py 
-# <class 'duckdb.duckdb.DuckDBPyRelation'> 
-```
