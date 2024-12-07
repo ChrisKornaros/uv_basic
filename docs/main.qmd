@@ -54,14 +54,30 @@ The nice thing about `uv` is that it autopopulates your `.gitignore` file with a
 #### Remote Repository
 For anyone familiar with software development you've probably heard of GitHub or GitLab. I'm more familiar, professionally and personally, with GitHub (which is what I'll be using in this example); however, there are a large amount of people that prefer GitLab because it is better for some enterprise and personal use cases-- **TL;DR** `...`. For this, you'll want to install the [GitHub CLI](https://www.github.com/cli/). Then, you can follow along.
 
-1. Make sure to get your credentials setup
+1. Make sure to get your credentials setup, in git
    1. A
    2. B
    3. C
    4. D
    5. E
-2. Check that it's installed
-   1. 
+2. Check that GitHub CLI is installed and verify by looking at which repos you have access to
+   1. `which gh`
+3. Assuming you haven't, create your project repo from the CLI
+   1. `gh repo create`
+   2. `Create a new repository from scratch`
+   3. `uv basic`
+   4. *optional description*
+   5. `Public`
+   6. `GNU Affero General Public License v3.0` **See note on licenses for more info (add section and link here)**
+   7. **Add images here**
+4. Set the newly created repo as the local git repo's upstream
+   1. This will result in an error (`git pull`)
+   2. Set the global config to merge **Link to resources explainin merge v. rebase v. ff**
+   3. git pull with a commit message
+   4. git status to verify
+   5. git push
+
+### Adding and managing dependencies {#sec-2-dep}
 
 ## General Notes
 - It seems that while tools are specific to a uv project instance (i.e. uv_basic returns the .venv dir when asking which jupyter, but test before intalling anything say it can't be found), when you use uv tool install it installs it to the system wide uv
