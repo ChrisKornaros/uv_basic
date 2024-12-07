@@ -63,3 +63,62 @@ For anyone familiar with software development you've probably heard of GitHub or
 2. Check that it's installed
    1. 
 
+## General Notes
+- It seems that while tools are specific to a uv project instance (i.e. uv_basic returns the .venv dir when asking which jupyter, but test before intalling anything say it can't be found), when you use uv tool install it installs it to the system wide uv
+- `uv pip list` defaults to the global (non-uv or non-pip) python environment (in my case it's pip and wheel), but once you install something (using add, pip install, etc.) it switches the context to the current parent uv dir (i.e. test, instead of uv_basic)
+  - Tools are still listed even after this
+- `uv tool install` only works when installing python package specific tools, but DuckDB for Python (for example) doesn't come packaged with the DuckDB CLI tools, so `uv tool install duckdb` won't install the DuckDB CLI features
+- It seems that saving variable with duckdb.sql(...).show() and then printing the type of that, just prints the query output, insteaed of the type
+- Based on tests, the workflow changes are as follows
+- Worth noting, the below code does not account for git creation or management
+
+### pip/classic format
+```
+mkdir uv_basic
+cd uv_basic
+python -m venv .venv
+source .venv/bin/activate
+pip install duckdb
+
+# Write your script
+"""
+import duckdb
+
+def main():
+        test = duckdb.sql("SELECT 42")
+
+        return print(type(test))
+
+if __name__ == '__main__':
+   main()
+"""
+
+python script.py
+# <class 'duckdb.duckdb.DuckDBPyRelation'>
+deactivate
+
+```
+### uv format
+
+```
+cd home
+uv init uv_basic
+cd uv_basic
+uv add duckdb
+
+# Write your script
+"""
+import duckdb
+
+def main():
+        test = duckdb.sql("SELECT 42")
+
+        return print(type(test))
+
+if __name__ == '__main__':
+   main()
+"""
+
+uv run test.py 
+# <class 'duckdb.duckdb.DuckDBPyRelation'> 
+```
