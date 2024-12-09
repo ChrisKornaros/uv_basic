@@ -1,23 +1,34 @@
-# The Python Project *and* Package manager, uv
+# Getting Started with uv, the Python Project and Package Manager
 ## Introduction
 
-::: {.callout-important}
-**Note, use CMD-K CMD-S to open the keyboard shortcuts.**
-`SHFT-CMD-i` inserts a code block
+::: {.callout-tip}
+If you're using VS Code, here are some useful shortcuts.
+- Note, use CMD-K CMD-S to open the keyboard shortcuts.
+- `SHFT-CMD-i` inserts a code block
 :::
 
-`uv` is an Open Source project by `Astral`, the makers of `ruff`, that is self described (and worthy of the title) as 
+`uv` is an Open Source project by `Astral`, the makers of `ruff`, that is self described (and worthy of the title) as **an extremely fast Python package and project manager, written in Rust.**\
 
-> **pull** from their docs here.
+> 🚀 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and more.\
+> ⚡️ 10-100x faster than pip.\
+> 🐍 Installs and manages Python versions.\
+> 🛠️ Runs and installs Python applications.\
+> ❇️ Runs scripts, with support for inline dependency metadata.\
+> 🗂️ Provides comprehensive project management, with a universal lockfile.\
+> 🔩 Includes a pip-compatible interface for a performance boost with a familiar CLI.\
+> 🏢 Supports Cargo-style workspaces for scalable projects.\
+> 💾 Disk-space efficient, with a global cache for dependency deduplication.\
+> ⏬ Installable without Rust or Python via curl or pip.\
+> 🖥️ Supports macOS, Linux, and Windows.\
 
 
 I'm only just beginning to learn and use the tool in my own projects (including converting my existing project environments to uv) and from what I've seen it's going to make life much easier. That being said, while you overwrite the muscle memory developed for years with `pip` and `venv`, there will be some growing pains; however, for those who are less familiar with what I'm talking about, I'll still explain some basic concepts and snags that I both run and ran into.
 
 ## Basic workflow and guide
 ### Concepts to Know Before Getting Started {#sec-0-prereq}
-- Basic knowledge of directories, bash (zsh in the case of MacOS), and using the CLI [bash resources](https://www.DataCamp.com/)
-- Basic knowledge of Python, common project structures, and simple workflows [Python resources](https://www.python.org/)
-- Basic knowledge of git (for local version control) and GitHub (for collaboration) [git and GitHub basics](https://www.GitHub.com/)
+- Basic knowledge of directories, bash (zsh in the case of MacOS), and using the CLI [bash](https://www.learnshell.org)
+- Basic knowledge of Python, common project structures, and simple workflows [Python](https://www.python.org/)
+- Basic knowledge of git (for local version control) and GitHub (for collaboration) [git and GitHub basics](https://docs.github.com/en/get-started/start-your-journey)
 - Basic knowledge of Quarto for documention [Quarto](https://www.quarto.org/)
 
 ### Initializing a Project {#sec-1-init}
@@ -52,27 +63,40 @@ The nice thing about `uv` is that it autopopulates your `.gitignore` file with a
 :::
 
 #### Remote Repository
-For anyone familiar with software development you've probably heard of GitHub or GitLab. I'm more familiar, professionally and personally, with GitHub (which is what I'll be using in this example); however, there are a large amount of people that prefer GitLab because it is better for some enterprise and personal use cases-- **TL;DR** `...`. For this, you'll want to install the [GitHub CLI](https://www.github.com/cli/). Then, you can follow along.
+For anyone familiar with software development you've probably heard of GitHub or GitLab. I'm more familiar, professionally and personally, with GitHub (which is what I'll be using in this example); however, there are a large amount of people that prefer GitLab because it is better for some enterprise and personal use cases-- [GitHub vs. GitLab](https://prismic.io/blog/gitlab-vs-github). For this, you'll want to install the [GitHub CLI](https://cli.github.com). Then, you can follow along.
 
-1. Make sure to get your credentials setup, in git
-   1. A
-   2. B
-   3. C
-   4. D
-   5. E
-2. Check that GitHub CLI is installed and verify by looking at which repos you have access to
-   1. `which gh`
-3. Assuming you haven't, create your project repo from the CLI (you can also do so using the GitHub.com GUI, but I prefer this way to reinforce my learning)
+1. Verify the installations and make sure to get your credentials setup, in git
+   1. `which gh` and `which git`
+2. Add your name and email
+   1. `git config --global user.name "Your Name"`
+   2. `git config --global user.email "your-email@example.com"`
+3. Authenticate access to GitHub
+   1. `gh auth login`
+   2. Using the CLI option, follow the instructions
+   3. Select `HTTPS` for the easier connection option
+4. Verify you have proper access to your GitHub
+   1. `gh auth status`
+```{bash}
+github.com
+  ✓ Logged in to github.com account itsmeChis (keyring)
+  - Active account: true
+  - Git operations protocol: https
+  - Token: gho_************************************
+  - Token scopes: 'delete_repo', 'gist', 'read:org', 'repo', 'workflow'
+```
+
+   2. `gh repo list`
+5. Assuming you haven't, create your project repo from the CLI (you can also do so using the GitHub.com GUI, but I prefer this way to reinforce my learning)
    1. `gh repo create`
    2. `Create a new repository from scratch`
    3. `uv basic`
    4. *optional description*
    5. `Public`
-   6. `GNU Affero General Public License v3.0` **See note on licenses for more info (add section and link here)**
+   6. `GNU Affero General Public License v3.0` [Which license do you need?](https://choosealicense.com)
    7. **Add images here**
-4. Set the newly created repo as the local git repo's upstream
+6. Set the newly created repo as the local git repo's upstream
    1. This will result in an error (`git pull`)
-   2. Set the global config to merge **Link to resources explainin merge v. rebase v. ff**
+   2. Set the global config to merge [git pull](https://git-scm.com/docs/git-pull)
    3. git pull with a commit message
    4. git status to verify
    5. git push
@@ -123,16 +147,32 @@ The workflow improvements and efficiency should be obvious. The nice thing is th
 
 To cap this off, here are some common use cases for `uv sync`:
 - Run uv sync (without --frozen) to keep dependencies up-to-date and to resolve changes.
-- Use uv sync --frozen to ensure that only locked dependencies are installed.
-- Use uv sync --no-sync to validate dependencies without altering them.
+- Use uv sync --frozen to validate dependencies without altering them
 
-### Converting your Legacy Projects to uv
-Now that you've seen the benefits of uv, as well as the workflow differences, you probably want to give it a try or even convert entire projects to uv. The good news is that this is simple and only requires a few modifications to get things up and running. The general workflow is the same as I outlined above, you'll just be cleaning up your local environment and reinstalling things along the way. The project I converted to use `uv` for this example utilizes `DuckDB` and `dbt` for the database and data modeling/ETL, so I had a .config folder with my DB file, venv directory, and requirements file. In the below example, I did away with that and lined up my project directory structure with uv's default.  
+### Converting your Legacy Projects to uv {#sec-3-convert}
+Now that you've seen the benefits of uv, as well as the workflow differences, you probably want to give it a try or even convert entire projects to uv. The good news is that this is simple and only requires a few modifications to get things up and running. The general workflow is the same as I outlined above, you'll just be cleaning up your local environment and reinstalling things along the way. The project I converted to use `uv` for this example utilizes `DuckDB` and `dbt` for the database and data modeling/ETL. I'll include some dbt specific information, for example if you move your database file from a subdirectory to the main one, remember to update your dbt profiles in your global dbt location.  
 
 1. Change directories to your specific project directory
-2. Assuming your `.git`, `.venv`, and 
+2. Run `uv init`, it will create any file or folder that isn't currently in the main folder
+   -  If you already have a `.git` folder and commit history, `uv` will **not** delete or overwrite the original folder.
+3. Add all of the dependencies you need, then remove your requirements file (it's no longer needed)
+   -  As of writing this, I wasn't sure how to use `uv add` with the legacy requirements file, `uv pip install -r ` kind of worked, but didn't actually add the dependencies to the .toml or .lock files
+   -  There must be an easier way to bulk add dependencies, but I manually did it
+   -  In my case, I had to remember to add ***both*** `dbt` and `dbt-duckdb`, so the adapter would work
+4. Install all of the CLI tools that you need, and don't want or use globally
+   - In my case, I need `jupyter`, `quarto`, and `dbt`, but I also have the latter two installed globally
+5. Verify that uv can run things correctly
+   - I first used `uv run hello.py` to verify that the basic functionality is there
+   - Then, I ran a more complex script, that imports and uses duckdb, to ensure the packages are installing and running as intended
+   - Then, I used `uv tool list` to verify which CLI tools are installed
+   - Finally, I verified that the CLI tools work, by using `uv run dbt run --select transform` to test dbt model functionality in uv
 
-## General Notes
+### Final Thoughts {#sec-4-final}
+So that's it! Overall, uv is incredibly easy to setup and configure because it builds on the classic workflows, while simplifying or abstracting some of the process. You also saw how easy it is to start using uv with older projects that use the legacy workflow. At the time of writing this, I've only been using `uv` for a few days, so I'm sure there are things I got wrong or missed, please comment to let me know! 
+
+I'm happy to chat and love learning about data, as well as what folks in this space are working on. Connect with me on [Bluesky](https://bsky.app/profile/chriskornaros.bsky.social) `@chriskornaros.bsky.social` to follow along with what I'm working on, learning, or just to say hi! Below are some other notes and thoughts I had while working on this write up. 
+
+#### General Notes
 - It seems that while tools are specific to a uv project instance (i.e. uv_basic returns the .venv dir when asking which jupyter, but test before intalling anything say it can't be found), when you use uv tool install it installs it to the system wide uv
 - `uv pip list` defaults to the global (non-uv or non-pip) python environment (in my case it's pip and wheel), but once you install something (using add, pip install, etc.) it switches the context to the current parent uv dir (i.e. test, instead of uv_basic)
   - Tools are still listed even after this
