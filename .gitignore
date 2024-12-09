@@ -10,7 +10,7 @@ wheels/
 .venv
 
 # Quarto Files
-#docs/*.html
+docs/*.html
 docs/*ipynb
 docs/*_files/
 docs/.quarto/
