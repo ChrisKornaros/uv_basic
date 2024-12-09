@@ -92,8 +92,8 @@ github.com
    4. *optional description*
    5. `Public`
    6. `GNU Affero General Public License v3.0` [Which license do you need?](https://choosealicense.com)
-![](/Users/chriskornaros/Documents/uv_basic/docs/images)
-6. Set the newly created repo as the local git repo's upstream
+![](https://github.com/ChrisKornaros/uv_basic/blob/main/docs/images/gh_cli_repo_setup.png)
+1. Set the newly created repo as the local git repo's upstream
    1. This will result in an error (`git pull`)
    2. Set the global config to merge [git pull](https://git-scm.com/docs/git-pull)
    3. git pull with a commit message
