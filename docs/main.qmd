@@ -7,7 +7,7 @@ If you're using VS Code, here are some useful shortcuts.
 - `SHFT-CMD-i` inserts a code block
 :::
 
-`uv` is an Open Source project by `Astral`, the makers of `ruff`, that is self described (and worthy of the title) as **an extremely fast Python package and project manager, written in Rust.**\
+`uv` is an Open Source project by `Astral`, the makers of `ruff`, that is self described (and worthy of the title) as **an extremely fast Python package and project manager, written in Rust.**
 
 > 🚀 A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and more.\
 > ⚡️ 10-100x faster than pip.\
@@ -19,7 +19,7 @@ If you're using VS Code, here are some useful shortcuts.
 > 🏢 Supports Cargo-style workspaces for scalable projects.\
 > 💾 Disk-space efficient, with a global cache for dependency deduplication.\
 > ⏬ Installable without Rust or Python via curl or pip.\
-> 🖥️ Supports macOS, Linux, and Windows.\
+> 🖥️ Supports macOS, Linux, and Windows.
 
 
 I'm only just beginning to learn and use the tool in my own projects (including converting my existing project environments to uv) and from what I've seen it's going to make life much easier. That being said, while you overwrite the muscle memory developed for years with `pip` and `venv`, there will be some growing pains; however, for those who are less familiar with what I'm talking about, I'll still explain some basic concepts and snags that I both run and ran into.
@@ -29,7 +29,6 @@ I'm only just beginning to learn and use the tool in my own projects (including 
 - Basic knowledge of directories, bash (zsh in the case of MacOS), and using the CLI [bash](https://www.learnshell.org)
 - Basic knowledge of Python, common project structures, and simple workflows [Python](https://www.python.org/)
 - Basic knowledge of git (for local version control) and GitHub (for collaboration) [git and GitHub basics](https://docs.github.com/en/get-started/start-your-journey)
-- Basic knowledge of Quarto for documention [Quarto](https://www.quarto.org/)
 
 ### Initializing a Project {#sec-1-init}
 #### Local Repository
@@ -59,7 +58,7 @@ This will create 4 files and initalize a local git repository:
 
 :::{.callout-tip}
 # uv and the .gitignore file
-The nice thing about `uv` is that it autopopulates your `.gitignore` file with a few files and patterns, not to mention, it provides some basic tagging for what it puts in there. Just open the file (it's plain text) to see. Since I'm saving my progress with this repo using git, I want to keep the overall file size down. So, I also included the `.html` and `.ipynb` file that Quarto generates because they can get large fast.
+The nice thing about `uv` is that it autopopulates your `.gitignore` file with a few files and patterns, not to mention, it provides some basic tagging for what it puts in there. Just open the file (it's plain text) to see. Since I'm saving my progress with this repo using git, I want to keep the overall file size down. So, I also included the `.html` and `.ipynb` file that Quarto generates because they can get large fast. Additionally, when you initialize your GitHub repo with the CLI's repo creation process, I don't include a README or .gitignore, because those are included in `uv init`. 
 :::
 
 #### Remote Repository
@@ -93,7 +92,7 @@ github.com
    4. *optional description*
    5. `Public`
    6. `GNU Affero General Public License v3.0` [Which license do you need?](https://choosealicense.com)
-   7. **Add images here**
+![](/Users/chriskornaros/Documents/uv_basic/docs/images)
 6. Set the newly created repo as the local git repo's upstream
    1. This will result in an error (`git pull`)
    2. Set the global config to merge [git pull](https://git-scm.com/docs/git-pull)
